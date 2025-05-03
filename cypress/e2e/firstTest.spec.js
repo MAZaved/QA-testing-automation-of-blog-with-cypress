@@ -34,7 +34,7 @@ describe('Test with backend', () => {
   })
 
 
-  it.only('intercepting and modifying the request and response', () => {
+  it('intercepting and modifying the request and response', () => {
 
     // cy.intercept('POST', '**/articles/', (req) =>{
     //   req.body.article.description = "This is a description 2"
@@ -97,12 +97,52 @@ describe('Test with backend', () => {
   })
 
   it.only('Delete an article', () => {
-    const userCredentials = {
-      "user": {
-        "email": "cytest90@gmail.com",
-        "password": "1234"
+
+    // const userCredentials = {
+    //   "user": {
+    //     "email": "cytest90@gmail.com",
+    //     "password": "1234"
+    //   }
+    // }
+
+    const bodyRequest = {
+      "article": {
+          "tagList": [],
+          "title": "Request from API",
+          "description": "Request from API description",
+          "body": "Request from API body"
       }
     }
+
+    // cy.request('POST', 'https://conduit-api.bondaracademy.com/api/users/login', userCredentials).its('body').then( body => {
+    cy.get('@token').then( token => {
+      
+
+      cy.request({
+        url: 'https://conduit-api.bondaracademy.com/api/articles',
+        headers: {'Authorization': 'Token ' +token},
+        method: 'POST',
+        body: bodyRequest
+      }).then( response  => {
+        expect(response.status).to.equal(201)
+      })
+
+      cy.contains('Global Feed').click()
+      cy.wait(2000)
+      cy.get('.article-preview').first().click()
+      cy.wait(2000)
+      // cy.get('.btn-outline-danger').click()
+      cy.get('.article-actions').contains('Delete Article').click()
+
+      cy.request({
+        url: 'https://conduit-api.bondaracademy.com/api/articles',
+        headers: {'Authorization': 'Token ' +token},
+        method: 'GET'
+      }).its('body').then( body => {
+        const articles = body.articles
+        expect(articles[0].title).to.not.contain('Request from API')
+      })
+    })
   })
 
 })
