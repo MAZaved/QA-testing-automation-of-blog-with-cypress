@@ -1,0 +1,17 @@
+{
+    "baseUrl": "http://localhost:4200",
+    "ignoreTestFiles": "**/examples/*.js",
+    "video": false,
+    "viewportWidth": 1920,
+    "viewportHeight": 1080,
+    "reporter": "cypress-multi-reporters",
+    "reporterOptions": {
+        "configFile": "reporter-config.json"
+    },
+    "env": {
+        "RETRIES": 2,
+        "username": "cytest90@gmail.com",
+        "password": "1234",
+        "apiUrl": "https://conduit-api.bondaracademy.com"
+    }
+}

@@ -7,12 +7,28 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build --prod --base-href ./ && cp CNAME dist/CNAME",
+    "test": "ng test",
+    "lint": "ng lint --force",
+    "e2e": "ng e2e",
+    "delete:reports": "rm -r cypress/results/* || true",
+    "prereport": "npm run delete:reports",
     "cy:open_dev": "npx cypress open --env username=admin,password=admin",
     "cy:open_qa": "npx cypress open --env username=admin.qa,password=admin.qa",
-    "cy:open_process": "npx cypress open --env username=$DB_USERNAME,password=$DB_PASSWORD"
+    "cy:open_process": "npx cypress open --env username=$DB_USERNAME,password=$DB_PASSWORD",
+    "cypress:e2e": "npx start-test start http-get://localhost:4200 cypress:run"
   },
+
   "devDependencies": {
-    "cypress": "^14.3.1"
+    "cypress": "^14.3.1",
+    "cypress-multi-reporters": "^2.0.5",
+    "mocha": "^11.2.2",
+    "mocha-junit-reporter": "^2.2.1",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^5.0.0",
+    "mochawesome-report-generator": "^6.2.0",
+    "start-test": "^0.0.1"
   }
 }
