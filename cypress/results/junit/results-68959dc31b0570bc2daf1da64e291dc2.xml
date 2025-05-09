@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="4.079" tests="1" failures="0">
+  <testsuite name="Root Suite" timestamp="2025-05-09T13:50:55" tests="0" file="cypress\e2e\secondTest.spec.js" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Test logout" timestamp="2025-05-09T13:50:55" tests="1" time="4.078" failures="0">
+    <testcase name="Test logout verify user can log out successfully" time="4.040" classname="verify user can log out successfully">
+    </testcase>
+  </testsuite>
+</testsuites>

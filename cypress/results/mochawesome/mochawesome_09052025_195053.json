@@ -1,0 +1,107 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-05-09T13:50:41.645Z",
+    "end": "2025-05-09T13:50:52.994Z",
+    "duration": 11349,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "432de84a-8a4d-424f-9077-725a6f83c47b",
+      "title": "",
+      "fullFile": "cypress\\e2e\\firstTest.spec.js",
+      "file": "cypress\\e2e\\firstTest.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "f3d4bcdb-8ca1-45bb-965a-bf3062657314",
+          "title": "Test with backend",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Delete an article",
+              "fullTitle": "Test with backend Delete an article",
+              "timedOut": null,
+              "duration": 11306,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// const userCredentials = {\n//   \"user\": {\n//     \"email\": \"cytest90@gmail.com\",\n//     \"password\": \"1234\"\n//   }\n// }\nconst bodyRequest = {\n  \"article\": {\n    \"tagList\": [],\n    \"title\": \"Request from API\",\n    \"description\": \"Request from API description\",\n    \"body\": \"Request from API body\"\n  }\n};\n// cy.request('POST', 'https://conduit-api.bondaracademy.com/api/users/login', userCredentials).its('body').then( body => {\ncy.get('@token').then(token => {\n  cy.request({\n    url: 'https://conduit-api.bondaracademy.com/api/articles',\n    headers: {\n      'Authorization': 'Token ' + token\n    },\n    method: 'POST',\n    body: bodyRequest\n  }).then(response => {\n    expect(response.status).to.equal(201);\n  });\n  cy.contains('Global Feed').click();\n  cy.wait(2000);\n  cy.get('.article-preview').first().click();\n  cy.wait(2000);\n  // cy.get('.btn-outline-danger').click()\n  cy.get('.article-actions').contains('Delete Article').click();\n  cy.request({\n    url: 'https://conduit-api.bondaracademy.com/api/articles',\n    headers: {\n      'Authorization': 'Token ' + token\n    },\n    method: 'GET'\n  }).its('body').then(body => {\n    const articles = body.articles;\n    expect(articles[0].title).to.not.contain('Request from API');\n  });\n});",
+              "err": {},
+              "uuid": "d28dc0b9-fb2f-49f8-8b06-fb0b99ba8651",
+              "parentUUID": "f3d4bcdb-8ca1-45bb-965a-bf3062657314",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "d28dc0b9-fb2f-49f8-8b06-fb0b99ba8651"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 11306,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/results/mochawesome",
+        "overwrite": false,
+        "html": true,
+        "json": true,
+        "timestamp": "ddmmyyyy_HHMMss"
+      },
+      "version": "6.2.0"
+    }
+  }
+}
