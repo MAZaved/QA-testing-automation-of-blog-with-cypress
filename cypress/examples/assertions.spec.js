@@ -75,5 +75,40 @@ context('Assertions', () => {
             ])
           })
       })
+
+      it('finds element by class name regex', () => {
+        cy.get('.docs-header')
+          .find('div')
+          // .should(cb) callback function will be retried
+          .should(($div) => {
+            expect($div).to.have.length(1)
+
+            const className = $div[0].className
+
+            expect(className).to.match(/heading-/)
+          })
+          // .then(cb) callback is not retried,
+          // it either passes or fails
+          .then(($div) => {
+            expect($div, 'text content').to.have.text('Introduction')
+          })
+      })
+
+      it('can throw any error', () => {
+        cy.get('.docs-header')
+          .find('div')
+          .should(($div) => {
+            if ($div.length !== 1) {
+              // you can throw your own errors
+              throw new Error('Did not find 1 element')
+            }
+
+            const className = $div[0].className
+
+            if (!className.match(/heading-/)) {
+              throw new Error(`Could not find class "heading-" in ${className}`)
+            }
+          })
+      })
     })
 })
