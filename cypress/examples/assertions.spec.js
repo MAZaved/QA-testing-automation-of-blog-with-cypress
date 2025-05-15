@@ -142,5 +142,14 @@ context('Assertions', () => {
           })
       })
 
+      it('assert - assert shape of an object', () => {
+        const person = {
+          name: 'Joe',
+          age: 20,
+        }
+
+        assert.isObject(person, 'value is object')
+      })
+
     })
 })
