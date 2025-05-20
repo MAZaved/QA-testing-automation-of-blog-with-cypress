@@ -20,5 +20,26 @@ context('Connectors', () => {
       .should('be.gt', 2)
   })
 
+  it('.invoke() - invoke a function on the current subject', () => {
+    // our div is hidden in our script.js
+    // $('.connectors-div').hide()
+
+    // https://on.cypress.io/invoke
+    cy.get('.connectors-div').should('be.hidden')
+      // call the jquery method 'show' on the 'div.container'
+      .invoke('show')
+      .should('be.visible')
+  })
+
+  it('.spread() - spread an array as individual args to callback function', () => {
+    // https://on.cypress.io/spread
+    const arr = ['foo', 'bar', 'baz']
+
+    cy.wrap(arr).spread((foo, bar, baz) => {
+      expect(foo).to.eq('foo')
+      expect(bar).to.eq('bar')
+      expect(baz).to.eq('baz')
+    })
+  })
   
 })
