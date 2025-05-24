@@ -67,4 +67,31 @@ describe('.then()', () => {
       })
   })
 
+  it('yields the original subject without return', () => {
+      cy.wrap(1)
+        .then((num) => {
+          expect(num).to.equal(1)
+          // note that nothing is returned from this callback
+        })
+        .then((num) => {
+          // this callback receives the original unchanged value 1
+          expect(num).to.equal(1)
+        })
+  })
+
+  it('yields the value yielded by the last Cypress command inside', () => {
+    cy.wrap(1)
+      .then((num) => {
+        expect(num).to.equal(1)
+        // note how we run a Cypress command
+        // the result yielded by this Cypress command
+        // will be passed to the second ".then"
+        cy.wrap(2)
+      })
+      .then((num) => {
+        // this callback receives the value yielded by "cy.wrap(2)"
+        expect(num).to.equal(2)
+      })
+  })
+
 })
