@@ -106,4 +106,23 @@ context('Actions', () => {
     cy.get('.action-opacity>.btn').click({ force: true })
   
   })
+
+  it('.dblclick() - double click on a DOM element', () => {
+    // https://on.cypress.io/dblclick
+
+    // Our app has a listener on 'dblclick' event in our 'scripts.js'
+    // that hides the div and shows an input on double click
+    cy.get('.action-div').dblclick().should('not.be.visible')
+    cy.get('.action-input-hidden').should('be.visible')
+  })
+
+  it('.rightclick() - right click on a DOM element', () => {
+    // https://on.cypress.io/rightclick
+
+    // Our app has a listener on 'contextmenu' event in our 'scripts.js'
+    // that hides the div and shows an input on right click
+    cy.get('.rightclick-action-div').rightclick().should('not.be.visible')
+    cy.get('.rightclick-action-input-hidden').should('be.visible')
+  })
+  
 })
