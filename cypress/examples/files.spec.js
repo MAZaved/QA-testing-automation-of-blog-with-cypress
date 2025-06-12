@@ -60,4 +60,17 @@ context('Files', () => {
       .should('have.property', 'name')
       .and('include', 'Using fixtures to represent data')
   })
+
+  it('cy.fixture() or require - load a fixture', function () {
+    // we are inside the "function () { ... }"
+    // callback and can use test context object "this"
+    // "this.example" was loaded in "beforeEach" function callback
+    expect(this.example, 'fixture in the test context')
+      .to.deep.equal(requiredExample)
+
+    // or use "cy.wrap" and "should('deep.equal', ...)" assertion
+    // @ts-ignore
+    cy.wrap(this.example, 'fixture vs require')
+      .should('deep.equal', requiredExample)
+  })
 })
